@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #050507;
+  --bg-card: #0c0c10;
+  --bg-elevated: #111116;
+  --accent-indigo: #6366f1;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-bg: rgba(255,255,255,0.03);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99,102,241,0.3) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(99,102,241,0.25);
+  border-radius: 100px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(99,102,241,0.5);
+}
+
+::selection {
+  background-color: rgba(99,102,241,0.35);
+  color: white;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ─── LOADING SHIMMER ─── */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ─── GLOW PULSE ─── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,0.15); }
+  50% { box-shadow: 0 0 50px rgba(99,102,241,0.35); }
+}
+
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-green {
+  0%, 100% { box-shadow: 0 0 20px rgba(16,185,129,0.15); }
+  50% { box-shadow: 0 0 50px rgba(16,185,129,0.35); }
+}
+
+.glow-pulse-green {
+  animation: glow-pulse-green 3s ease-in-out infinite;
+}
+
+/* ─── FLOATING ORB ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(2deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 10s ease-in-out 2s infinite;
+}
+
+.animate-float-slow {
+  animation: float 14s ease-in-out 4s infinite;
+}
+
+/* ─── TICKER MARQUEE ─── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* ─── GRADIENT BORDER ─── */
+.gradient-border {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 1rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(99,102,241,0.3), transparent, rgba(16,185,129,0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── GLASS CARD ─── */
+.glass-card {
+  background: rgba(12, 12, 16, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+}
+
+.glass-card-hover:hover {
+  background: rgba(18, 18, 24, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+/* ─── SPOTLIGHT HOVER ─── */
+@keyframes spotlight {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* ─── TYPEWRITER CURSOR ─── */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #6366f1;
+  font-weight: 200;
+}
+
+/* ─── TAB INDICATOR ─── */
+.tab-indicator {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── SIGNAL RING ─── */
+@keyframes signal-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.signal-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: signal-ring 2s ease-out infinite;
+}
+
+/* ─── METRIC COUNTER ─── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up {
+  animation: count-up 0.6s ease-out forwards;
+}
+
+/* ─── GRADIENT TEXT ─── */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 30%, #818cf8 70%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── BUTTON STYLES ─── */
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border: 1px solid rgba(99,102,241,0.5);
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(99,102,241,0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(99,102,241,0.4);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  color: #a1a1aa;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* ─── RESPONSIVE UTILITIES ─── */
+@media (max-width: 640px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
